@@ -1,2 +1,1 @@
-# classificador_de_carros_cnn
-Classificador de carros usando Redes Neurais Convolucionais
+# Classificador de carros usando Redes Neurais Convolucionais
