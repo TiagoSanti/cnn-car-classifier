@@ -1,7 +1,10 @@
 # Classificador de carros usando Rede Neural Convolucional
-Esta foi uma proposta para a seleção de Iniciação Científica na Universidade Federal de Mato Grosso do Sul (UFMS).
 
-A proposta consistia no desenvolvimento de um classificador de carros utilizando rede neural convolucional, em que deveriam ser selecionados cinco modelos de carros para fazer a construção do dataset de imagens. O algoritmo deveria ser capaz de classificar as imagens de entrada entre esses modelos pré-selecionados. 
+Esta foi uma proposta para a seleção de Iniciação Científica na Universidade Federal de Mato Grosso do Sul (UFMS).</br></br>
+
+A proposta consistia no desenvolvimento de um classificador de carros utilizando rede neural convolucional, em que deveriam ser selecionados cinco modelos de carros para fazer a construção do dataset de imagens. O algoritmo deveria ser capaz de classificar as imagens de entrada entre esses modelos pré-selecionados.</br></br>
+
+Os modelos escolhidos foram: Volkswagen Fusca, Toyota Hilux, Audi RS3, Ferrari F40 e Lamborghini Veneno por apresentarem certo grau de estilo, formato, altura e coloração diferentes entre si.
 
 ## Dataset
 
@@ -23,7 +26,6 @@ def download_images(main_dir, urls_filename):
             except:
                 print('Não foi possível baixar ->', url)
 ```
-</br>
 Entre as imagens inicialmente coletadas, foi preciso limpar manualmente aquelas que não contribuiam com o contexto do projeto, como imagens do interior do veículo, com zoom em seus componentes, que continham mais de um modelo presente, entre outros casos.</br></br>
 
 Em código, o dataset de treino passou por normalização e tratamento de canais para se adaptar ao modelo do algoritmo de classificação.
@@ -42,7 +44,7 @@ dataset = torchvision.datasets.DatasetFolder(main_dir+'/train', loader=image_loa
 ```
 
 ## Treinamento
-Depois de várias execuções de teste, a quantidade de épocas escolhida arbitrariamente para o treinamento foi de trinta épocas. Uma época representa um ciclo em que o modelo fará uma série de cálculos com a entrada e chegará em um resultado/predição. Esse resultado é comparado com o que seria esperado, no contexto de classificação de carros, a entrada seria uma imagem de um carro, e o resultado seria um dos modelos de carro. A partir dessa comparação, o modelo será ajustado buscando melhorar suas predições.</br></br>
+Depois de várias execuções de teste, foi escolhida a quantidade de trinta épocas para o treinamento. Uma época representa um ciclo em que o modelo fará uma série de cálculos com a entrada e resultará em uma predição. Essa predição é comparada com o que seria esperado, no contexto de classificação de carros, a entrada seria uma imagem de um carro, e a predição seria um dos modelos de carro. A partir dessa comparação, o modelo será ajustado buscando melhorar suas predições.</br></br>
 
 A quantidade de épocas é limitada para tentar minimizar o overfitting e underfitting do algoritmo, o que significa que não queremos que ele se ajuste demais durante o treinamento a ponto de não conseguir realizar predições com outras imagens que não estejam no dataset de treino, nem que ele enxergue as imagens de forma generalizada o bastante para não ser capaz de encontrar relações entre elas e classificá-las ainda durante o treinamento.</br></br>
 
@@ -69,4 +71,4 @@ for epoch in range(epochs):
 
 ## Teste
 Por fim, o dataset contendo cem imagens de cada modelo foi utilizado para testar o algoritmo. Abaixo está uma matrix de confusão para analizar o resultado, o eixo horizontal representa as categorias previstas e o eixo vertical representa as categorias reais.
-<img src="./confusion matrix.png"/>
+</br><img src="./confusion matrix.png"/>
