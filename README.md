@@ -44,7 +44,7 @@ dataset = torchvision.datasets.DatasetFolder(main_dir+'/train', loader=image_loa
 ```
 
 ## Treinamento
-Depois de várias execuções de teste, foi escolhida a quantidade de trinta épocas para o treinamento. Uma época representa um ciclo em que o modelo fará uma série de cálculos com a entrada e resultará em uma predição. Essa predição é comparada com o que seria esperado, no contexto de classificação de carros, a entrada seria uma imagem de um carro, e a predição seria um dos modelos de carro. A partir dessa comparação, o modelo será ajustado buscando melhorar suas predições.</br></br>
+Depois de várias execuções de teste, foi escolhida a quantidade de trinta épocas para o treinamento. Uma época representa um ciclo em que o modelo fará uma série de cálculos com a entrada e resultará em uma predição. Essa predição é comparada com o resultado esperado. No contexto de classificação de carros, a entrada seria uma imagem de um carro, e a predição seria um dos modelos de carro. A partir dessa comparação, o modelo será ajustado buscando melhorar suas predições.</br></br>
 
 A quantidade de épocas é limitada para tentar minimizar o overfitting e underfitting do algoritmo, o que significa que não queremos que ele se ajuste demais durante o treinamento a ponto de não conseguir realizar predições com outras imagens que não estejam no dataset de treino, nem que ele enxergue as imagens de forma generalizada o bastante para não ser capaz de encontrar relações entre elas e classificá-las ainda durante o treinamento.</br></br>
 
