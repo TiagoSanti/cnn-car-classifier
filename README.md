@@ -1,14 +1,16 @@
-# Classificador de carros usando Rede Neural Convolucional
+# Car Classifier using Convolutional Neural Network
 
-Esta foi uma proposta para a seleção de Iniciação Científica na Universidade Federal de Mato Grosso do Sul (UFMS).</br></br>
+This was a proposal for the Scientific Initiation selection at the Federal University of Mato Grosso do Sul (UFMS)
 
-A proposta consistia no desenvolvimento de um classificador de carros utilizando rede neural convolucional, em que deveriam ser selecionados cinco modelos de carros para fazer a construção do dataset de imagens. O algoritmo deveria ser capaz de classificar as imagens de entrada entre esses modelos pré-selecionados.</br></br>
 
-Os modelos escolhidos foram: Volkswagen Fusca, Toyota Hilux, Audi RS3, Ferrari F40 e Lamborghini Veneno por apresentarem certo grau de estilo, formato, altura e coloração diferentes entre si.
+The proposal involved the development of a car classifier using a convolutional neural network, where five car models had to be selected to construct the image dataset. The algorithm should be able to classify the input images among these pre-selected models.
+
+
+The chosen models were: Volkswagen Beetle, Toyota Hilux, Audi RS3, Ferrari F40, and Lamborghini Veneno due to their distinct style, shape, height, and coloration from one another.
 
 ## Dataset
 
-A partir da plataforma de busca de imagens [Flickr](https://www.flickr.com/) e um algoritmo de coleta, armazenamento e download de imagens, foi possível construir um dataset dividido em pastas de treino e teste, sendo essas pastas contendo subdivisões para cada modelo. Cada subdivisão do treino contém 1400 imagens coletadas, já para o teste, 100 imagens.
+Using the image search platform [Flickr](https://www.flickr.com/) and an image collection, storage, and download algorithm, it was possible to build a dataset divided into training and testing folders. These folders contain subdivisions for each model. Each training subdivision has 1400 collected images, while for testing, there are 100 images.
 ```
 import urllib.request
 
@@ -26,9 +28,10 @@ def download_images(main_dir, urls_filename):
             except:
                 print('Não foi possível baixar ->', url)
 ```
-Entre as imagens inicialmente coletadas, foi preciso limpar manualmente aquelas que não contribuiam com o contexto do projeto, como imagens do interior do veículo, com zoom em seus componentes, que continham mais de um modelo presente, entre outros casos.</br></br>
+Among the initially collected images, it was necessary to manually clean those that did not contribute to the project's context, such as images of the vehicle's interior, zoomed-in on their components, containing more than one model present, among other cases.
 
-Em código, o dataset de treino passou por normalização e tratamento de canais para se adaptar ao modelo do algoritmo de classificação.
+
+In code, the training dataset underwent normalization and channel processing to adapt to the classification algorithm's model.
 
 ```
 class ToNorm(object):
@@ -43,12 +46,14 @@ transform = transforms.Compose([transforms.Resize((50,50)), transforms.ToTensor(
 dataset = torchvision.datasets.DatasetFolder(main_dir+'/train', loader=image_loader, extensions='jpg', transform=transform)
 ```
 
-## Treinamento
-Depois de várias execuções de teste, foi escolhida a quantidade de trinta épocas para o treinamento. Uma época representa um ciclo em que o modelo fará uma série de cálculos com a entrada e resultará em uma predição. Essa predição é comparada com o resultado esperado. No contexto de classificação de carros, a entrada seria uma imagem de um carro, e a predição seria um dos modelos de carro. A partir dessa comparação, o modelo será ajustado buscando melhorar suas predições.</br></br>
+## Training
+After several test runs, thirty epochs were chosen for training. An epoch represents a cycle in which the model will perform a series of calculations with the input and result in a prediction. This prediction is compared to the expected outcome. In the context of car classification, the input would be an image of a car, and the prediction would be one of the car models. Based on this comparison, the model will be adjusted to improve its predictions.
 
-A quantidade de épocas é limitada para tentar minimizar o overfitting e underfitting do algoritmo, o que significa que não queremos que ele se ajuste demais durante o treinamento a ponto de não conseguir realizar predições com outras imagens que não estejam no dataset de treino, nem que ele enxergue as imagens de forma generalizada o bastante para não ser capaz de encontrar relações entre elas e classificá-las ainda durante o treinamento.</br></br>
 
-Ao fim das trinta épocas, o erro médio de predição é de aproximadamente 4.27%.
+The number of epochs is limited to try to minimize the algorithm's overfitting and underfitting. This means we don't want it to adjust too much during training to the point where it can't make predictions with other images not in the training dataset. Nor do we want it to view the images so generally that it can't find relationships between them and classify them even during training.
+
+
+At the end of the thirty epochs, the average prediction error is approximately 4.27%.
 ```
 epochs = 30
 
@@ -69,6 +74,8 @@ for epoch in range(epochs):
     print('{}/{}'.format(epoch+1, epochs), np.mean(loss))
 ```
 
-## Teste
-Por fim, o dataset contendo cem imagens de cada modelo foi utilizado para testar o algoritmo. Abaixo está uma matrix de confusão para analizar o resultado, o eixo horizontal representa as categorias previstas e o eixo vertical representa as categorias reais.
-</br><img src="./confusion matrix.png"/>
+## Evaluation
+Finally, the dataset containing one hundred images of each model was used to evaluate the algorithm. Below is a confusion matrix to analyze the results; the horizontal axis represents the predicted categories, and the vertical axis represents the actual categories.
+
+
+<img src="./confusion matrix.png"/>
